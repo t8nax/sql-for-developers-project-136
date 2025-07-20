@@ -4,6 +4,8 @@ DROP TABLE IF EXISTS programs;
 DROP TABLE IF EXISTS modules;
 DROP TABLE IF EXISTS lessons;
 DROP TABLE IF EXISTS courses;
+DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS teaching_groups;
 
 CREATE TABLE courses (
     id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
@@ -54,4 +56,22 @@ CREATE TABLE modules_programs (
     module_id BIGINT REFERENCES modules(id),
     program_id BIGINT REFERENCES programs(id),
     PRIMARY KEY(module_id, program_id)
+);
+
+CREATE TABLE teaching_groups (
+    id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    slug VARCHAR(255) UNIQUE NOT NULL,
+    created_at TIMESTAMP NOT NULL,
+    updated_at TIMESTAMP NOT NULL
+);
+
+CREATE TABLE users (
+    id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    pass_hash VARCHAR(255) NOT NULL,
+    teaching_group_id BIGINT REFERENCES teaching_groups(id),
+    role VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP NOT NULL,
+    updated_at TIMESTAMP NOT NULL
 );
