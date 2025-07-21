@@ -1,5 +1,8 @@
+
+DROP TABLE IF EXISTS blog;
+DROP TABLE IF EXISTS discussions;
 DROP TABLE IF EXISTS exercises;
-DROP TABLE IF EXISTS quizzess;
+DROP TABLE IF EXISTS quizzes;
 DROP TABLE IF EXISTS certificates;
 DROP TABLE IF EXISTS program_completions;
 DROP TABLE IF EXISTS payments;
@@ -8,11 +11,12 @@ DROP TABLE IF EXISTS courses_modules;
 DROP TABLE IF EXISTS modules_programs;
 DROP TABLE IF EXISTS programs;
 DROP TABLE IF EXISTS modules;
-DROP TABLE IF EXISTS lessons;
-DROP TABLE IF EXISTS courses;
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS teaching_groups;
+DROP TABLE IF EXISTS lessons;
+DROP TABLE IF EXISTS courses;
 
+DROP TYPE IF EXISTS article_status;
 DROP TYPE IF EXISTS user_role;
 DROP TYPE IF EXISTS enrollment_status;
 DROP TYPE IF EXISTS payment_status;
@@ -134,7 +138,7 @@ CREATE TABLE certificates (
     updated_at TIMESTAMP NOT NULL
 );
 
-CREATE TABLE quizzess (
+CREATE TABLE quizzes (
     id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     lesson_id BIGINT NOT NULL REFERENCES lessons(id),
     title TEXT NOT NULL,
@@ -148,6 +152,26 @@ CREATE TABLE exercises (
     lesson_id BIGINT NOT NULL REFERENCES lessons(id),
     title TEXT NOT NULL,
     url VARCHAR(1023) NOT NULL,
+    created_at TIMESTAMP NOT NULL,
+    updated_at TIMESTAMP NOT NULL
+);
+
+CREATE TABLE discussions (
+    id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    lesson_id BIGINT NOT NULL REFERENCES lessons(id),
+    body TEXT NOT NULL,
+    created_at TIMESTAMP NOT NULL,
+    updated_at TIMESTAMP NOT NULL
+);
+
+CREATE TYPE article_status AS ENUM ('created', 'in moderation', 'published', 'archived');
+
+CREATE TABLE blog (
+    id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    user_id BIGINT NOT NULL REFERENCES users(id),
+    title TEXT NOT NULL,
+    body TEXT NOT NULL,
+    status article_status NOT NULL,
     created_at TIMESTAMP NOT NULL,
     updated_at TIMESTAMP NOT NULL
 );
