@@ -1,3 +1,5 @@
+DROP TABLE IF EXISTS exercises;
+DROP TABLE IF EXISTS quizzess;
 DROP TABLE IF EXISTS certificates;
 DROP TABLE IF EXISTS program_completions;
 DROP TABLE IF EXISTS payments;
@@ -128,6 +130,24 @@ CREATE TABLE certificates (
     program_id BIGINT NOT NULL REFERENCES programs(id),
     url VARCHAR(1023) NOT NULL,
     issued_at TIMESTAMP NOT NULL,
+    created_at TIMESTAMP NOT NULL,
+    updated_at TIMESTAMP NOT NULL
+);
+
+CREATE TABLE quizzess (
+    id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    lesson_id BIGINT NOT NULL REFERENCES lessons(id),
+    title TEXT NOT NULL,
+    body TEXT NOT NULL,
+    created_at TIMESTAMP NOT NULL,
+    updated_at TIMESTAMP NOT NULL
+);
+
+CREATE TABLE exercises (
+    id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    lesson_id BIGINT NOT NULL REFERENCES lessons(id),
+    title TEXT NOT NULL,
+    url VARCHAR(1023) NOT NULL,
     created_at TIMESTAMP NOT NULL,
     updated_at TIMESTAMP NOT NULL
 );
