@@ -94,7 +94,7 @@ CREATE TABLE users (
     updated_at TIMESTAMP
 );
 
-CREATE TYPE enrollment_status AS ENUM ('Active', 'Pending', 'Cancelled', 'Completed');
+CREATE TYPE enrollment_status AS ENUM ('active', 'penging', 'cancelled', 'completed');
 
 CREATE TABLE enrollments (
     id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
@@ -105,7 +105,7 @@ CREATE TABLE enrollments (
     updated_at TIMESTAMP
 );
 
-CREATE TYPE payment_status AS ENUM ('Pending', 'Paid', 'Failed', 'Refunded');
+CREATE TYPE payment_status AS ENUM ('pending', 'paid', 'failed', 'refunded');
 
 CREATE TABLE payments (
     id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
@@ -117,7 +117,7 @@ CREATE TABLE payments (
     updated_at TIMESTAMP
 );
 
-CREATE TYPE program_completion_status AS ENUM ('Active', 'Completed', 'Pending', 'Cancelled');
+CREATE TYPE program_completion_status AS ENUM ('active', 'completed', 'pending', 'cancelled');
 
 CREATE TABLE program_completions (
     id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
