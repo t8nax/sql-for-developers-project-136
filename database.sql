@@ -39,7 +39,7 @@ CREATE TABLE lessons (
     position INT NOT NULL,
     created_at TIMESTAMP NOT NULL, 
     updated_at TIMESTAMP NOT NULL,
-    course_id BIGINT NOT NULL REFERENCES courses(id),
+    course_id BIGINT REFERENCES courses(id),
     deleted_at TIMESTAMP NOT NULL
 );
 
@@ -47,9 +47,9 @@ CREATE TABLE modules (
     id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     name VARCHAR(255) NOT NULL,
     description TEXT NOT NULL,
-    created_at TIMESTAMP NOT NULL,
-    updated_at TIMESTAMP NOT NULL,
-    deleted_at TIMESTAMP NOT NULL
+    created_at TIMESTAMP,
+    updated_at TIMESTAMP,
+    deleted_at TIMESTAMP
 );
 
 CREATE TABLE course_modules (
@@ -63,8 +63,8 @@ CREATE TABLE programs (
     name VARCHAR(255) NOT NULL,
     price DECIMAL NOT NULL,
     program_type VARCHAR(255) NOT NULL,
-    created_at TIMESTAMP NOT NULL,
-    updated_at TIMESTAMP NOT NULL
+    created_at TIMESTAMP,
+    updated_at TIMESTAMP
 );
 
 CREATE TABLE program_modules (
@@ -76,8 +76,8 @@ CREATE TABLE program_modules (
 CREATE TABLE teaching_groups (
     id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     slug VARCHAR(255) UNIQUE NOT NULL,
-    created_at TIMESTAMP NOT NULL,
-    updated_at TIMESTAMP NOT NULL
+    created_at TIMESTAMP,
+    updated_at TIMESTAMP
 );
 
 CREATE TYPE user_role AS ENUM ('student', 'teacher', 'admin');
@@ -89,9 +89,9 @@ CREATE TABLE users (
     password_hash VARCHAR(255) NOT NULL,
     teaching_group_id BIGINT REFERENCES teaching_groups(id),
     role user_role NOT NULL,
-    deleted_at TIMESTAMP NOT NULL,
-    created_at TIMESTAMP NOT NULL,
-    updated_at TIMESTAMP NOT NULL
+    deleted_at TIMESTAMP,
+    created_at TIMESTAMP,
+    updated_at TIMESTAMP
 );
 
 CREATE TYPE enrollment_status AS ENUM ('active', 'pending', 'cancelled', 'completed');
@@ -101,8 +101,8 @@ CREATE TABLE enrollments (
     user_id BIGINT NOT NULL REFERENCES users(id),
     program_id BIGINT NOT NULL REFERENCES programs(id),
     status enrollment_status NOT NULL,
-    created_at TIMESTAMP NOT NULL,
-    updated_at TIMESTAMP NOT NULL
+    created_at TIMESTAMP,
+    updated_at TIMESTAMP
 );
 
 CREATE TYPE payment_status AS ENUM ('pending', 'paid', 'failed', 'refunded');
@@ -113,8 +113,8 @@ CREATE TABLE payments (
     status payment_status NOT NULL,
     paid_at TIMESTAMP NOT NULL,
     amount DECIMAL NOT NULL,
-    created_at TIMESTAMP NOT NULL,
-    updated_at TIMESTAMP NOT NULL
+    created_at TIMESTAMP,
+    updated_at TIMESTAMP
 );
 
 CREATE TYPE program_completion_status AS ENUM ('active', 'completed', 'pending', 'cancelled');
@@ -126,8 +126,8 @@ CREATE TABLE program_completions (
     status program_completion_status NOT NULL,
     started_at TIMESTAMP NOT NULL,
     completed_at TIMESTAMP NOT NULL,
-    created_at TIMESTAMP NOT NULL,
-    updated_at TIMESTAMP NOT NULL
+    created_at TIMESTAMP,
+    updated_at TIMESTAMP
 );
 
 CREATE TABLE certificates (
@@ -136,8 +136,8 @@ CREATE TABLE certificates (
     program_id BIGINT NOT NULL REFERENCES programs(id),
     url VARCHAR(1023) NOT NULL,
     issued_at TIMESTAMP NOT NULL,
-    created_at TIMESTAMP NOT NULL,
-    updated_at TIMESTAMP NOT NULL
+    created_at TIMESTAMP,
+    updated_at TIMESTAMP
 );
 
 CREATE TABLE quizzes (
@@ -145,8 +145,8 @@ CREATE TABLE quizzes (
     lesson_id BIGINT NOT NULL REFERENCES lessons(id),
     name TEXT NOT NULL,
     content TEXT NOT NULL,
-    created_at TIMESTAMP NOT NULL,
-    updated_at TIMESTAMP NOT NULL
+    created_at TIMESTAMP,
+    updated_at TIMESTAMP
 );
 
 CREATE TABLE exercises (
@@ -154,8 +154,8 @@ CREATE TABLE exercises (
     lesson_id BIGINT NOT NULL REFERENCES lessons(id),
     name TEXT NOT NULL,
     url VARCHAR(1023) NOT NULL,
-    created_at TIMESTAMP NOT NULL,
-    updated_at TIMESTAMP NOT NULL
+    created_at TIMESTAMP,
+    updated_at TIMESTAMP
 );
 
 CREATE TABLE discussions (
@@ -163,8 +163,8 @@ CREATE TABLE discussions (
     lesson_id BIGINT NOT NULL REFERENCES lessons(id),
     user_id BIGINT NOT NULL REFERENCES users(id),
     text TEXT NOT NULL,
-    created_at TIMESTAMP NOT NULL,
-    updated_at TIMESTAMP NOT NULL
+    created_at TIMESTAMP,
+    updated_at TIMESTAMP
 );
 
 CREATE TYPE article_status AS ENUM ('created', 'in moderation', 'published', 'archived');
@@ -175,6 +175,6 @@ CREATE TABLE blogs (
     name TEXT NOT NULL,
     content TEXT NOT NULL,
     status article_status NOT NULL,
-    created_at TIMESTAMP NOT NULL,
-    updated_at TIMESTAMP NOT NULL
+    created_at TIMESTAMP,
+    updated_at TIMESTAMP
 );
