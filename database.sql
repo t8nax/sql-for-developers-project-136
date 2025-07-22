@@ -45,11 +45,11 @@ CREATE TABLE lessons (
 
 CREATE TABLE modules (
     id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-    title VARCHAR(255) NOT NULL,
+    name VARCHAR(255) NOT NULL,
     description TEXT NOT NULL,
     created_at TIMESTAMP NOT NULL,
     updated_at TIMESTAMP NOT NULL,
-    is_deleted BOOLEAN NOT NULL
+    deleted_at TIMESTAMP NOT NULL
 );
 
 CREATE TABLE course_modules (
@@ -162,7 +162,7 @@ CREATE TABLE discussions (
     id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     lesson_id BIGINT NOT NULL REFERENCES lessons(id),
     user_id BIGINT NOT NULL REFERENCES users(id),
-    content TEXT NOT NULL,
+    text TEXT NOT NULL,
     created_at TIMESTAMP NOT NULL,
     updated_at TIMESTAMP NOT NULL
 );
