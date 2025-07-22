@@ -86,7 +86,7 @@ CREATE TABLE users (
     id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     name VARCHAR(255) NOT NULL,
     email VARCHAR(255) UNIQUE NOT NULL,
-    password_hash VARCHAR(255) NOT NULL,
+    password_hash VARCHAR(255),
     teaching_group_id BIGINT REFERENCES teaching_groups(id),
     role user_role NOT NULL,
     deleted_at TIMESTAMP,
