@@ -16,12 +16,6 @@ DROP TABLE IF EXISTS teaching_groups;
 DROP TABLE IF EXISTS lessons;
 DROP TABLE IF EXISTS courses;
 
-DROP TYPE IF EXISTS article_status;
-DROP TYPE IF EXISTS user_role;
-DROP TYPE IF EXISTS enrollment_status;
-DROP TYPE IF EXISTS payment_status;
-DROP TYPE IF EXISTS program_completion_status;
-
 CREATE TABLE courses (
     id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     name VARCHAR(255) NOT NULL,
@@ -80,52 +74,44 @@ CREATE TABLE teaching_groups (
     updated_at TIMESTAMP
 );
 
-CREATE TYPE user_role AS ENUM ('Student', 'Teacher', 'Admin');
-
 CREATE TABLE users (
     id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     name VARCHAR(255) NOT NULL,
     email VARCHAR(255) UNIQUE NOT NULL,
     password_hash VARCHAR(255),
     teaching_group_id BIGINT REFERENCES teaching_groups(id),
-    role user_role NOT NULL,
+    role VARCHAR(255) NOT NULL,
     deleted_at TIMESTAMP,
     created_at TIMESTAMP,
     updated_at TIMESTAMP
 );
 
-CREATE TYPE enrollment_status AS ENUM ('active', 'penging', 'cancelled', 'completed');
-
 CREATE TABLE enrollments (
     id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     user_id BIGINT NOT NULL REFERENCES users(id),
     program_id BIGINT NOT NULL REFERENCES programs(id),
-    status enrollment_status NOT NULL,
+    status VARCHAR(255) NOT NULL,
     created_at TIMESTAMP,
     updated_at TIMESTAMP
 );
 
-CREATE TYPE payment_status AS ENUM ('pending', 'paid', 'failed', 'refunded');
-
 CREATE TABLE payments (
     id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     enrollment_id BIGINT NOT NULL REFERENCES enrollments(id),
-    status payment_status NOT NULL,
+    status VARCHAR(255) NOT NULL,
     paid_at TIMESTAMP NOT NULL,
     amount DECIMAL NOT NULL,
     created_at TIMESTAMP,
     updated_at TIMESTAMP
 );
 
-CREATE TYPE program_completion_status AS ENUM ('active', 'completed', 'pending', 'cancelled');
-
 CREATE TABLE program_completions (
     id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     user_id BIGINT NOT NULL REFERENCES users(id),
     program_id BIGINT NOT NULL REFERENCES programs(id),
-    status program_completion_status NOT NULL,
-    started_at TIMESTAMP NOT NULL,
-    completed_at TIMESTAMP NOT NULL,
+    status VARCHAR(255) NOT NULL,
+    started_at TIMESTAMP,
+    completed_at TIMESTAMP,
     created_at TIMESTAMP,
     updated_at TIMESTAMP
 );
@@ -167,14 +153,12 @@ CREATE TABLE discussions (
     updated_at TIMESTAMP
 );
 
-CREATE TYPE article_status AS ENUM ('created', 'in moderation', 'published', 'archived');
-
 CREATE TABLE blogs (
     id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     user_id BIGINT NOT NULL REFERENCES users(id),
     name TEXT NOT NULL,
     content TEXT NOT NULL,
-    status article_status NOT NULL,
+    status VARCHAR(255) NOT NULL,
     created_at TIMESTAMP,
     updated_at TIMESTAMP
 );
