@@ -80,7 +80,7 @@ CREATE TABLE teaching_groups (
     updated_at TIMESTAMP
 );
 
-CREATE TYPE user_role AS ENUM ('student', 'teacher', 'admin');
+CREATE TYPE user_role AS ENUM ('Student', 'Teacher', 'Admin');
 
 CREATE TABLE users (
     id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
@@ -94,7 +94,7 @@ CREATE TABLE users (
     updated_at TIMESTAMP
 );
 
-CREATE TYPE enrollment_status AS ENUM ('active', 'pending', 'cancelled', 'completed');
+CREATE TYPE enrollment_status AS ENUM ('Active', 'Pending', 'Cancelled', 'Completed');
 
 CREATE TABLE enrollments (
     id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
@@ -105,7 +105,7 @@ CREATE TABLE enrollments (
     updated_at TIMESTAMP
 );
 
-CREATE TYPE payment_status AS ENUM ('pending', 'paid', 'failed', 'refunded');
+CREATE TYPE payment_status AS ENUM ('Pending', 'Paid', 'Failed', 'Refunded');
 
 CREATE TABLE payments (
     id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
@@ -117,7 +117,7 @@ CREATE TABLE payments (
     updated_at TIMESTAMP
 );
 
-CREATE TYPE program_completion_status AS ENUM ('active', 'completed', 'pending', 'cancelled');
+CREATE TYPE program_completion_status AS ENUM ('Active', 'Completed', 'Pending', 'Cancelled');
 
 CREATE TABLE program_completions (
     id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
