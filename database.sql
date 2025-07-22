@@ -26,9 +26,9 @@ CREATE TABLE courses (
     id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     name VARCHAR(255) NOT NULL,
     description TEXT NOT NULL,
-    created_at TIMESTAMP NOT NULL,
-    updated_at TIMESTAMP NOT NULL,
-    deleted_at TIMESTAMP NOT NULL
+    created_at TIMESTAMP,
+    updated_at TIMESTAMP,
+    deleted_at TIMESTAMP
 );
 
 CREATE TABLE lessons (
@@ -36,11 +36,11 @@ CREATE TABLE lessons (
     name VARCHAR(255) NOT NULL,
     content TEXT NOT NULL,
     video_url VARCHAR(255),
-    position INT NOT NULL,
-    created_at TIMESTAMP NOT NULL, 
-    updated_at TIMESTAMP NOT NULL,
+    position INT,
+    created_at TIMESTAMP, 
+    updated_at TIMESTAMP,
     course_id BIGINT REFERENCES courses(id),
-    deleted_at TIMESTAMP NOT NULL
+    deleted_at TIMESTAMP
 );
 
 CREATE TABLE modules (
