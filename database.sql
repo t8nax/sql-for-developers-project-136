@@ -90,7 +90,7 @@ CREATE TABLE enrollments (
     id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     user_id BIGINT NOT NULL REFERENCES users(id),
     program_id BIGINT NOT NULL REFERENCES programs(id),
-    status VARCHAR(255) NOT NULL,
+    status VARCHAR(255) NOT NULL CHECK (status IN ('active', 'pending', 'cancelled', 'completed')),
     created_at TIMESTAMP,
     updated_at TIMESTAMP
 );
