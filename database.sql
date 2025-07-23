@@ -158,7 +158,7 @@ CREATE TABLE blogs (
     user_id BIGINT NOT NULL REFERENCES users(id),
     name TEXT NOT NULL,
     content TEXT NOT NULL,
-    status VARCHAR(255) NOT NULL,
+    status VARCHAR(255) NOT NULL CHECK (status IN ('created', 'in moderation', 'published', 'archived')),
     created_at TIMESTAMP,
     updated_at TIMESTAMP
 );
